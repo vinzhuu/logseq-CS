@@ -9,11 +9,25 @@ tags:: [[Dart]]
 	  logseq.order-list-type:: number
 	- [[Dart Syntax/Class]]
 	  logseq.order-list-type:: number
+		- [[Dart Syntax/Variable Members]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Constructor]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Method Members]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Object's Type]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Callable Object]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Abstract Class]]
+		  logseq.order-list-type:: number
+		- [[Dart Syntax/Extend a class]]
+		  logseq.order-list-type:: number
 	- [[Dart Syntax/Mixin]]
 	  logseq.order-list-type:: number
 	- [[Dart Syntax/Extension Method]]
 	  logseq.order-list-type:: number
-- 类中可以定义对象的加减乘除等操作符的运算.
+-
 - 标识符以 `_` 开头的成员, 是 `private` 的.
 - ## Cascade notation
 	- 参考: [Cascade notation](https://dart.dev/language/operators#cascade-notation)

@@ -1,2 +1,2 @@
 -
-- {{renderer :tocgen2, [[dart function]], calc(100vh - 135px)}}
+- {{renderer :tocgen2, [[dart syntax/constructor]], calc(100vh - 135px)}}

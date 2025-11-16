@@ -4,13 +4,10 @@ tags:: [[Dart]]
 - ## 变量分类
 	- `Top-level variables` : 直接定义在文件的最外层, 而不在任何 `method` 或 `class` 中的变量.
 	  logseq.order-list-type:: number
-	- `Class variables` : 定义在类中的变量.
+	- `Instance variables` :  属于类的实例的变量.
 	  logseq.order-list-type:: number
-		- 又可分为两种:
-			- `Instance variables` :  属于类的实例.
-			  logseq.order-list-type:: number
-			- `Static variables` : 属于类本身, 所有实例共享.
-			  logseq.order-list-type:: number
+	- `Class variables / Static variables` : 属于类的变量, 所有实例共享.
+	  logseq.order-list-type:: number
 	- `Local variables` : 定义在方法中的变量.
 	  logseq.order-list-type:: number
 - ## Declare a variable
@@ -105,9 +102,9 @@ tags:: [[Dart]]
 			- ==注意: 声明了 late 也还是需要初始化, 否则还是会报错.==
 		- #### Lazily initialization
 			- 如下情况, 我们可能需要使用 `late` 关键字来 **延迟初始化** :
-				- 初始化一个 `Local variable` , 但后面可能用不上它, 而且初始化成本很昂贵.
+				- 初始化一个 `Local variable` 或  `Instance variable` ,  但后面可能用不上它, 而且初始化成本很昂贵.
 				  logseq.order-list-type:: number
-					- 为什么只说  `Local variable` 呢?
+					- 为什么只说 `Local variable` 或  `Instance variable` ,  呢?
 					- 因为 `Top-level variables` 和 `Class variables` 默认就是 **延迟初始化** 的.
 				- 初始化一个 `Instance variable` , 用到了 `this` .
 				  logseq.order-list-type:: number
