@@ -87,8 +87,10 @@ tags:: [[Dart]]
 	  int b = a!; // 这里不用 非 null 断言, 编译无法通过
 	  ```
 - ## 其他运算符
-	- 还有一些不算运算符的运算符 (应该属于语法的一部分)
-		- **Type test operators** , **Cascade notation** , **Member access operators**
+	- 还有一些不算运算符的运算符 (应该算作语法的一部分)
+		- **Type test operators**
+			- 参见: [[Dart Syntax/Object's Type]] 相关小节
+		- **Cascade notation** , **Member access operators**
 			- 参见: [[Dart Syntax/Class]] 相关小节
 		- **Spread operators** , **Subscript access operators** ,
 			- 参见: [[Dart Collection]] 相关小节

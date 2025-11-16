@@ -27,11 +27,9 @@ tags:: [[Dart]]
 	- 有且仅有如下运算符, 可以作为 Instance Method :
 		- `<` , `>` , `<=` , `>=` , `==` 
 		  logseq.order-list-type:: number
-		- `~`
-		  logseq.order-list-type:: number
 		- `-` , `+` ,  `/` , `~/` , `*` , `%` 
 		  logseq.order-list-type:: number
-		- `|` , `^` , `&` 
+		- `~` , `|` , `^` , `&`
 		  logseq.order-list-type:: number
 		- `<<` , `>>>` , `>>` 
 		  logseq.order-list-type:: number

@@ -22,14 +22,16 @@ tags:: [[Dart]]
 				  logseq.order-list-type:: number
 				- Getters & Setters
 				  logseq.order-list-type:: number
-			- Class methods
+			- Class methods (Static methods)
 			  logseq.order-list-type:: number
-			- Constructors
-			  logseq.order-list-type:: number
+		- Constructors
+		  logseq.order-list-type:: number
 - ## Variables
 	- 通读: [[Dart Syntax/Variable Members]]
 - ## Methods
 	- 通读: [[Dart Syntax/Method Members]]
+- ## Constructors
+	- 通读: [[Dart Syntax/Constructor]]
 - ## Create an object
 	-
 - ## Member access operators
