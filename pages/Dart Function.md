@@ -234,8 +234,7 @@ tags:: [[Dart]]
 		  print(upper("abc"));
 		  ```
 - ## Tear-offs
-	- 当我们引用 `function` , `method`, 或 `named constructor` 而不使用 `()` 时, dart 则会创建一个 `Tear-off` .
-	- `Tear-off` 就是一个函数对象.
+	- 当我们引用 `function` , `method`, 或 `named constructor` 而不使用 `()` 时, Dart 则会创建一个 函数对象 , 这个函数对象被称为 `Tear-off` .
 	- 在一个函数需要另一个函数作为入参, 则我们可以直接使用与这个入参 **类型相同** 的 `Tear-off` 作为入参.
 		- ``` dart
 		  var charCodes = [68, 97, 114, 116];
@@ -392,20 +391,52 @@ tags:: [[Dart]]
 				  ```
 			- 可以作为返回值被其他函数返回
 			  logseq.order-list-type:: number
-	- ### Specify Function Type
-		- ``` dart
-		  void greet(String name, {String greeting = 'Hello'}) => print('$greeting $name!');
-		  
-		  // Store `greet` in a variable and call it.
-		  void Function(String, {String greeting}) g = greet;
-		  g('Dash', greeting: 'Howdy');
-		  ```
-		- 将 **函数声明头 (function declaration header)** 的 **函数名** , 换成 `Function` 关键字, 并将 **默认值** 去掉, 就是 **Function Type** .
-		- **Positional parameters** ( **Required positional parameters** 和 **Optional positional parameters** ) 的 参数名称可以省略, **Names parameters** 不可省略参数名.
-	- ### Function class
-		- 所有的 **函数对象** , 都有其所属的 **函数类型**  .
+	- ### Function Type
+		- 所有的 **函数对象** , 都有其所属的 **Function Type**  .
 		- `Function` 类型, 是所有 **函数类型** 的超类.
-			- `Function` 类型, 其本身不包含任何值.
+		- `Function` 类型, 是 `Object` 的子类型.
+	- ### Function Type Syntax
+		- 直接使用 `Function` 声明变量类型, 只是泛指函数 (没有指定参数和返回值类型) .
+			- ``` dart
+			  Function f1 = (int x) => x + 1;
+			  ```
+		- 我们可以使用 Function Type Syntax 来声明具体的函数类型:
+			- ``` dart
+			  void greet(String name, {String greeting = 'Hello'}) => print('$greeting $name!');
+			  
+			  // Store `greet` in a variable and call it.
+			  void Function(String, {String greeting}) g = greet;
+			  g('Dash', greeting: 'Howdy');
+			  ```
+			- 将 **函数声明头 (function declaration header)** 的 **函数名** , 换成 `Function` 关键字, 并将 **默认值** 去掉, 就是 **Function Type** .
+			- **Positional parameters** ( **Required positional parameters** 和 **Optional positional parameters** ) 的 参数名称可以省略, **Named parameters** 不可省略参数名.
+		- 如果声明函数变量时, 不指定具体的函数类型, Dart 在编译时, 将不会检查具体函数类型, 这可能导致运行时报错.
+			- ``` dart
+			  Function f = (int x) => "$x";
+			  print(f(1)); // Prints "1".
+			  
+			  f("not", "one", "int"); // Throws! No static warning.
+			  ```
+	- ### `call` Method
+		- Function 类型, 隐式包含一个 `call` 方法.
+		- 其 **函数签名**  与这个 Function 对象一致, 调用这个方法, 就等同于调用这个 Function .
+			- 一般是用来调用 nullable Function 对象.
+			- ``` dart
+			  String Function(int) fun = (n) => "$n";
+			  print(fun.call(1)); // Prints "1".
+			  
+			  String Function(int)? maybeFun = Random().nextBool() ? fun : null;
+			  print(maybeFun?.call(1)); // Prints "1" or "null".
+			  ```
+	- ### `call` Property
+		- Function 类型, 隐式包含一个 `call` 属性.
+		- 其值就是这个 **函数对象** 本身.
+			- ``` dart
+			  Function fun = (int x) => "$x";
+			  var fun2 = fun.call; // Inferred type of `fun2` is `Function`.
+			  
+			  print(fun2.call(1)); // Prints "1";
+			  ```
 - ## 参考
 	- [Dart API - Function](https://api.dart.dev/dart-core/Function-class.html)
 	  logseq.order-list-type:: number

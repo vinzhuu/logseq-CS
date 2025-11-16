@@ -6,9 +6,9 @@ tags:: [[Dart]]
 	- 每一个 `Object` 都是一个 `class` 的实例 (instance) .
 - ## Class Members
 	- `class` 有如下成员:
-		- functions
+		- Methods
 		  logseq.order-list-type:: number
-			- methods
+			- Instance methods
 			  logseq.order-list-type:: number
 			- constructors
 			  logseq.order-list-type:: number
