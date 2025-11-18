@@ -191,37 +191,94 @@ tags:: [[Dart]]
 			  logseq.order-list-type:: number
 			- 方法体内需要显式返回一个所属 class 的对象 (不能返回 null) .
 			  logseq.order-list-type:: number
+		- 获取实例时, 如果需要处理一些复杂的逻辑, 可以用 factory constructor .
+			- 因为 factory constructor 可以灵活控制返回什么内容 (包括 `null` )
 	- ### Factory constructor samples
 		- Factory constructors 有如下几种经典使用场景:
-			- 单例模式:
-			  logseq.order-list-type:: number
-				- ``` dart
-				  class Logger {
-				    static Logger? _instance;
-				  
-				    factory Logger() {
-				      if (_instance == null) {
-				        _instance = Logger._internal();
-				        return _instance!;
-				      }
-				      return _instance!;
-				    }
-				  
-				    Logger._internal();
-				  }
-				  
-				  void main(List<String> args) {
-				    var logger1 = Logger();
-				    var logger2 = Logger();
-				    print(identical(logger1, logger2)); // true
-				  }
-				  
-				  ```
-			- logseq.order-list-type:: number
+		- #### 单例模式:
+			- ``` dart
+			  class Logger {
+			    static Logger? _instance;
+			  
+			    factory Logger() {
+			      if (_instance == null) {
+			        _instance = Logger._internal();
+			        return _instance!;
+			      }
+			      return _instance!;
+			    }
+			  
+			    Logger._internal();
+			  }
+			  
+			  void main(List<String> args) {
+			    var logger1 = Logger();
+			    var logger2 = Logger();
+			    print(identical(logger1, logger2)); // true
+			  }
+			  
+			  ```
+		- #### 缓存对象
+			- ``` dart
+			  class User {
+			    static final Map<int, User> _cache = {};
+			  
+			    final int id;
+			    User._internal(this.id);
+			  
+			    factory User(int id) {
+			      return _cache.putIfAbsent(id, () => User._internal(id));
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    var user1 = User(1);
+			    var user2 = User(1);
+			    var user3 = User(2);
+			  
+			    print(identical(user1, user2)); // true
+			    print(identical(user1, user3)); // false
+			  }
+			  ```
+		- #### 根据条件返回子类对象
+			- ``` dart
+			  abstract class Shape {
+			    factory Shape(String type) {
+			      if (type == 'circle') return Circle();
+			      if (type == 'square') return Square();
+			      throw ArgumentError('Unknown shape: $type');
+			    }
+			  }
+			  
+			  class Circle implements Shape {}
+			  
+			  class Square implements Shape {}
+			  
+			  void main(List<String> args) {
+			    Shape shape1 = Shape('circle');
+			    Shape shape2 = Shape('square');
+			  
+			    print(shape1.runtimeType); // Circle
+			    print(shape2.runtimeType); // Square
+			  }
+			  ```
+		- #### 复杂初始化
+			- ``` dart
+			  class Config {
+			    final Map<String, dynamic> data;
+			  
+			    factory Config.load() {
+			      var map = _loadConfigFromFile(); // 可能失败
+			      return Config._internal(map ?? {});
+			    }
+			  
+			    Config._internal(this.data);
+			  }
+			  ```
 	- ### Use Factory constructors
 		- 使用 `ClassName()` / `new ClassName()` 或 `ClassName.constructorName()` / `new ClassName.constructorName()` 语法, 调用构造函数创建对象  (最好省略 `new` ) .
 - ## Constructor Name
-	- 不能声明名称相同的 constructor (不管什么类型) , 所以 constructor 无法 **重载** .
+	- Constructor 之间不能同名 (不管什么类型) , 所以 constructor 无法 **重载** .
 		- 比如, 像这样会报错:
 			- ``` dart
 			  class Point {
