@@ -234,7 +234,7 @@ tags:: [[Dart]]
 		  print(upper("abc"));
 		  ```
 - ## Tear-offs
-	- 当我们引用 `function` , `method`, 或 `named constructor` 而不使用 `()` 时, Dart 则会创建一个 函数对象 , 这个函数对象被称为 `Tear-off` .
+	- 当我们引用 `function` , `method`, 或 `constructor` 而不使用 `()` 时, Dart 则会创建一个 函数对象 , 这个函数对象被称为 `Tear-off` .
 	- 在一个函数需要另一个函数作为入参, 则我们可以直接使用与这个入参 **类型相同** 的 `Tear-off` 作为入参.
 		- ``` dart
 		  var charCodes = [68, 97, 114, 116];

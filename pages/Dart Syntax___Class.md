@@ -10,6 +10,9 @@ tags:: [[Dart]]
 		  logseq.order-list-type:: number
 			- Instance variables
 			  logseq.order-list-type:: number
+			  :LOGBOOK:
+			  CLOCK: [2025-11-22 Sat 15:07:17]
+			  :END:
 			- Class variables (Static variables)
 			  logseq.order-list-type:: number
 		- Methods

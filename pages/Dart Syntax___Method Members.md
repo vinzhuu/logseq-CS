@@ -71,8 +71,8 @@ tags:: [[Dart]]
 			- 不管 `field` 属性的 `Setter` 方法内部做了什么,  `field` 被赋的值都是 `value` .
 	- ### Implicit Getter & Setter
 		- 所有的 Instance variables 都会生成隐式的 `Getter` Method .
-		- 所有的 Non-fina Instance variables 和 `late final` Instance variables 都会生成隐式的 `Setter` Method .
-			- 所有 非 `late` 的 `final` 变量, 需要在实例化时赋值, 后续用不到 `Setter` 方法
+		- 所有的 Non-final Instance variables 和 `late final` Instance variables 都会生成隐式的 `Setter` Method .
+			- 所有 非 `late` 的 `final` Instance variables , 需要在实例化时赋值, 后续用不到 `Setter` 方法
 		- ``` dart
 		  class Point {
 		    double? x; // Declare instance variable x, initially null.
@@ -121,12 +121,12 @@ tags:: [[Dart]]
 			  logseq.order-list-type:: number
 			- 把值存到临时变量上, 进行运算
 			  logseq.order-list-type:: number
-			- 调用 setter 将值写会.
+			- 调用 setter 将值写回.
 			  logseq.order-list-type:: number
 		- Dart 会保证 Getter 和 Setter 分别 **只调用一次** , 避免产生副作用.
 - ## Abstract methods
 	- 如下方法可以被定义为 Abstract Method .
-		- Instance Method
+		- 普通 Instance Method
 		  logseq.order-list-type:: number
 		- Operator Instance Method
 		  logseq.order-list-type:: number

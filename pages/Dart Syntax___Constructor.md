@@ -3,79 +3,49 @@ tags:: [[Dart]]
 
 - ## Constructor Types
 	- Constructor 有如下几种类型:
-		- 普通构造函数
+		- Generative constructors  生成式构造函数
 		  logseq.order-list-type:: number
-			- Generative constructors  生成式构造函数
-			  logseq.order-list-type:: number
-			- Named constructors  命名构造函数
-			  logseq.order-list-type:: number
+		- Named constructors  命名构造函数
+		  logseq.order-list-type:: number
 		- Default constructors  默认构造函数
 		  logseq.order-list-type:: number
-		- 高级构造函数 (在 Generative constructors 或 Named constructors 的语法基础上, 加关键字)
+		- Constant constructors  常量构造函数
 		  logseq.order-list-type:: number
-			- Constant constructors  常量构造函数
-			  logseq.order-list-type:: number
-			- Factory constructors  工厂构造函数
-			  logseq.order-list-type:: number
+			- 在 Generative constructors 或 Named constructors 的语法基础上, 加 `const` 关键字
+		- Factory constructors  工厂构造函数
+		  logseq.order-list-type:: number
+			- 在 Generative constructors 或 Named constructors 的语法基础上, 加 `factory` 关键字
 - ## Generative constructors
 	- ### Define Generative constructors
 		- 创建一个实例, 并初始化 instance variables .
-			- 不写方法体 (使用 `this.field` 给 instance variables 初始化)
-			  logseq.order-list-type:: number
-				- ``` dart
-				  class Point {
-				    double? x;
-				    double? y;
-				  
-				    // 一个 Class 中只能写一个 Generative constructor 
-				    Point(this.x);
-				    Point(this.x, this.y);
-				  }
-				  
-				  void main(List<String> args) {
-				    var p = Point(2, 3);
-				    print('Point coordinates: (${p.x}, ${p.y})');
-				  }
-				  ```
-			- 写方法体
-			  logseq.order-list-type:: number
-				- ``` dart
-				  class Point {
-				    double? x;
-				    double? y;
-				  
-				    // 一个 Class 中只能写一个 Generative constructor 
-				    Point(double x) {
-				      this.x = x;
-				      this.y = 0;
-				      print("declarative constructor");
-				    }
-				  
-				    Point(double x, double y) {
-				      this.x = x;
-				      this.y = y;
-				      print("declarative constructor 2");
-				    }
-				  }
-				  
-				  void main(List<String> args) {
-				    var p = Point(2, 3);
-				    print('Point coordinates: (${p.x}, ${p.y})');
-				  }
-				  ```
+			- 这里只演示 **Use initializing formal parameters** 方式对变量进行初始化, 其他方式参见 ((6919d464-627c-465d-a1c0-b786c009a045))
+			- ``` dart
+			  class Point {
+			    double? x;
+			    double? y;
+			  
+			    Point(this.x, this.y);
+			  }
+			  
+			  void main(List<String> args) {
+			    var p = Point(2, 3);
+			    print('Point coordinates: (${p.x}, ${p.y})');
+			  }
+			  ```
 	- ### Use Generative constructors
 		- 使用 `ClassName()` 或 `new ClassName()` 语法, 调用构造函数创建对象 (最好省略 `new` ) .
 - ## Named constructors
 	- ### Define Named constructors
 		- 可以自己定义 constructor 的名称.
 			- 好处是, 可以让 constructor 更具语义, 可读性更高.
+		- 这里只演示 **Use initializing formal parameters** 方式对变量进行初始化, 其他方式参见 ((6919d464-627c-465d-a1c0-b786c009a045))
 		- ``` dart
 		  class Point {
 		    double? x;
 		    double? y;
 		  
 		    // Named constructor
-		    Point.origin(double x, double y) : this.x = x, this.y = y;
+		    Point.origin(this.x, this.y);
 		  }
 		  
 		  void main(List<String> args) {
@@ -85,8 +55,6 @@ tags:: [[Dart]]
 		  ```
 	- ### Use Named Constructors
 		- 使用 `ClassName.constructorName()` 或 `new ClassName.constructorName()` 语法, 调用构造函数创建对象  (最好省略 `new` ) .
-	- ### Redirecting constructors
-		-
 - ## Default constructors
 	- ### Define Default constructors
 		- 如果不显式声明 constructors , Dart 会使用 Default constructor .
@@ -111,6 +79,7 @@ tags:: [[Dart]]
 		- 使用 **同一个类** 中的  Constant constructors 创建的对象是同一个 (不管用的是不是同一个 Constant constructor )
 		- 关键字: 语法上, 就是在 Generative constructors 或 Named constructors 前加上关键字 `const` .
 		- 要求: 所有 Instance variables 都是 `final` 类型.
+		- 这里只演示 **Use initializing formal parameters** 方式对变量进行初始化, 其他方式参见 ((6919d464-627c-465d-a1c0-b786c009a045))
 		- ``` dart
 		  class Point {
 		    final double? x;
@@ -183,7 +152,7 @@ tags:: [[Dart]]
 - ## Factory constructors
 	- ### Define Factory constructors
 		- 前面提到的 Generative constructors, Named Constructors, Constant constructors 都是不能写 `return` 语句的, 它们会自动创建一个对象并返回.
-		- 而 Factory constructors 是不会自动创建对象的 (因此不能用 `this`), 需要开发者自己创建对象并返回.
+		- 而 Factory constructors 是不会自动创建对象的 (因此不能用 `this`), 需要开发者自己在方法体内创建对象并返回.
 		- ==语法上:==
 			- 使用 `ClassName` 或 `ClassName.constructorName` 作为方法名.
 			  logseq.order-list-type:: number
@@ -192,9 +161,10 @@ tags:: [[Dart]]
 			- 方法体内需要显式返回一个所属 class 的对象 (不能返回 null) .
 			  logseq.order-list-type:: number
 		- 获取实例时, 如果需要处理一些复杂的逻辑, 可以用 factory constructor .
-			- 因为 factory constructor 可以灵活控制返回什么内容 (包括 `null` )
+			- 因为 factory constructor 可以灵活控制返回什么内容.
 	- ### Factory constructor samples
 		- Factory constructors 有如下几种经典使用场景:
+			- 这里只演示 **Use initializing formal parameters** 方式对变量进行初始化, 其他方式参见 ((6919d464-627c-465d-a1c0-b786c009a045))
 		- #### 单例模式:
 			- ``` dart
 			  class Logger {
@@ -301,34 +271,231 @@ tags:: [[Dart]]
 			  ```
 	- Constructor 可以和 Instance method 同名, 但不能和 Class method 同名 (因为都是通过 class 来调用的).
 - ## Instance variable initialization
+  id:: 6919d464-627c-465d-a1c0-b786c009a045
+	- ### Instance Variables must be Initialized
+		- 如下类型的 成员变量 , 必须在创建对象时就被初始化:
+			- `nullable` variables 
+			  logseq.order-list-type:: number
+			- `non-late` 的 `final` variables
+			  logseq.order-list-type:: number
 	- ### Instance variable initialization Types
 		- Instance variable 的初始化有如下几种方式:
 			- Initialize in the declaration (在声明时初始化)
 			  logseq.order-list-type:: number
-			- Use initializing formal parameters (使用初始化形参)
+			- Initialize in the constructors (在构造方法中初始化)
 			  logseq.order-list-type:: number
-			- Use an initializer list (使用初始化列表)
-			  logseq.order-list-type:: number
+				- Use constructor body (使用构造方法体)
+				  logseq.order-list-type:: number
+				- Use an initializer list (使用初始化列表)
+				  logseq.order-list-type:: number
+				- Use initializing formal parameters (使用初始化形参)
+				  logseq.order-list-type:: number
+		- ==由于 Factory Constructors 无法使用 this 关键字, 所以不支持 initializer list 和 initializing formal parameters 方式.==
 	- ### Initialize in the declaration
 		- 在声明时初始化
-		- ``` dart
-		  class Point {
-		    double? x = 1.0;
-		    double? y = 2.0;
-		  
-		    @override
-		    String toString() {
-		      return 'Point($x,$y)';
-		    }
-		  }
-		  
-		  void main(List<String> args) {
-		    var p = Point();
-		    print(p);
-		  }
-		  ```
+			- ``` dart
+			  class Point {
+			    double? x = 1.0;
+			    double? y = 2.0;
+			  
+			    @override
+			    String toString() {
+			      return 'Point($x,$y)';
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    var p = Point();
+			    print(p);
+			  }
+			  ```
+	- ### Use constructor body
+		- 在 **方法体** 中给变量初始化 .
+			- ``` dart
+			  class Point {
+			    double? x;
+			    double? y;
+			  
+			    Point(double x, double y) {
+			      this.x = x;
+			      this.y = y;
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    var p = Point(2, 3);
+			    print('Point coordinates: (${p.x}, ${p.y})');
+			  }
+			  ```
+		- 当 Instance variables 属于 **在创建对象时必须初始化** 的变量时, 无法在 **方法体** 中对变量进行初始化, 会报错:
+			- ``` dart
+			  class Point {
+			    double x;
+			    double y;
+			  
+			    // 这样会报错
+			    Point(double x, double y) {
+			      this.x = x;
+			      this.y = y;
+			    }
+			  }
+			  
+			  class Point {
+			    late final double x;
+			    late final double y;
+			  
+			    // 正常
+			    Point(double x, double y) {
+			      this.x = x;
+			      this.y = y;
+			    }
+			  }
+			  ```
+		- ==这就需要用到其他初始化方式了==
+	- ### Use an initializer list
+		- 如下, 在方法签名之后, 使用 `: intializer1, intializer2` 这样的语法, 声明 initializer list .
+		- initializer list 之后可以接 **方法体** , 也可以不接 **方法体** .
+		- initializer list 一般就是用来对变量进行初始化的:
+			- 每一个 initializer 赋值语句的右侧都不能使用 `this` 关键字, 只能在赋值语句左侧使用.
+			- ``` dart
+			  class Point {
+			    double x;
+			    double y;
+			  
+			    Point(double x, double y) : this.x = x, this.y = y {
+			      print("Point.new");
+			    }
+			    Point.named(double x, double y) : this.x = x, this.y = y;
+			  }
+			  ```
+		- initializer list 也可以用于参数校验:
+			- ``` dart
+			  class Point {
+			    double x;
+			    double y;
+			  
+			    Point.withAssert(double x, double y)
+			      : assert(x >= 0),
+			        assert(y >= 0),
+			        this.x = x,
+			        this.y = y {
+			      print("Point.withAssert");
+			    }
+			  }
+			  ```
+		- 当 Instance variables 不属于 **在创建对象时必须初始化** 的变量时, initializer list 中 也可以不进行初始化:
+			- ``` dart
+			  class Point {
+			    double? x;
+			    late final double y;
+			  
+			    Point.named(double x, double y) : assert(x >= 0), assert(y >= 0) {
+			      print("Point.named");
+			    }
+			  }
+			  ```
 	- ### Use initializing formal parameters
+		- 省略 initializer list , 省略方法体, 直接使用 `this.x` 语法, 给 `x` 变量赋值.
+			- ``` dart
+			  class Point {
+			    double x;
+			    double y;
+			  
+			    // 等价于 Point(double x, double y) : this.x = x, this.y = y;
+			    Point(this.x, this.y);
+			  }
+			  ```
+			- `Point(this.x, this.y);` 的含义就是:
+				- 接收 参数 x 和 参数 y .
+				  logseq.order-list-type:: number
+				- 将接收的 x 和 y , 分别赋值给成员变量 x 和 y .
+				  logseq.order-list-type:: number
+			- `Point(this.x, this.y);` 等价于 **Use an initializer list** 方式的 `Point(double x, double y) : this.x = x, this.y = y;` .
+		- 另外, 参数也可以通过 named parameters 和 optional positional parameters 的方式传入, 且可以设置默认值:
+			- ``` dart
+			  class Point {
+			    double? x;
+			    double y;
+			  
+			    // positional parameters
+			    Point(this.x, this.y);
+			    // named parameters
+			    Point.named({this.x, this.y = 0.0});
+			    // optional positional parameters
+			    Point.optional([this.x, this.y = 0.0]);
+			  }
+			  ```
+			- 注意: 私有变量 `_field` 不能被用于 named parameters , 但可被用作 positional parameters / optional positional parameters .
+				- ``` dart
+				  class Point {
+				    final double _x;
+				    final double _y;
+				  
+				    // positional parameters
+				    Point(this._x, this._y);
+				    // 报错: Named parameters can't start with an underscore.
+				    Point.named({this._x = 0, this._y = 0});
+				    // optional positional parameters
+				    Point.optional([this._x = 0, this._y = 0]);
+				  }
+				  ```
+	- ### 混合使用
+		- 以上所有初始化方式, 可以混合使用:
+			- ``` dart
+			  class Point {
+			    final double x;
+			    final double y;
+			    late final double z;
+			  
+			    Point.twoD(this.x, double y) : this.y = y {
+			      this.z = 0.0;
+			    }
+			  }
+			  ```
+- ## Constructor execution order
+	- 构造方法执行顺序如下:
+		- 参数解析
+		  logseq.order-list-type:: number
+		- initializer list 执行
+		  logseq.order-list-type:: number
+		- 父类构造方法执行
+		  logseq.order-list-type:: number
+		- 构造方法体 `{}` 执行
+		  logseq.order-list-type:: number
+- ## Redirecting constructors
+	- ### Non-factory constructors
+		- Non-factory constructors , 即 Generative constructors, Named constructors 和 Constant constructors .
+		- 可以互相通过 `this` 或 `this.constructorName` 来引用同一个类其他 constructor .
+			- 不能有 **方法体** , 不能有 initializer list 和 initializing formal parameters
+			- ``` dart
+			  class Point {
+			    final double x;
+			    final double y;
+			  
+			    Point(this.x, this.y);
+			    Point.of(double x, double y) : this(x, y);
+			    Point.alongYAxis(double y) : this.of(0.0, y);
+			  }
+			  ```
+	- ### Factory constructors
 		-
+- ## Constructor tear-offs
+	- Constructor 也可以作为 `tear-off` 使用 (参见: [[Dart Function]] 相关小节 ) :
+		- ``` dart
+		  // Use a tear-off for a named constructor:
+		  var strings = charCodes.map(String.fromCharCode);
+		  
+		  // Use a tear-off for an unnamed constructor:
+		  var buffers = charCodes.map(StringBuffer.new);
+		  ```
+	- 不建议使用 匿名函数 (或称 lambda) , 因为它相当于在 Constructor 外又包了一层:
+		- ``` dart
+		  // Instead of a lambda for a named constructor:
+		  var strings = charCodes.map((code) => String.fromCharCode(code));
+		  
+		  // Instead of a lambda for an unnamed constructor:
+		  var buffers = charCodes.map((code) => StringBuffer(code));
+		  ```
 - ## 参考
 	- [Dart Docs - Constructors](https://dart.dev/language/constructors)
 	  logseq.order-list-type:: number
