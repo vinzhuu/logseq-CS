@@ -463,7 +463,7 @@ tags:: [[Dart]]
 		- 构造方法体 `{}` 执行
 		  logseq.order-list-type:: number
 - ## Redirecting constructors
-	- ### Non-factory constructors
+	- ### Redirecting Non-factory constructors
 		- Non-factory constructors , 即 Generative constructors, Named constructors 和 Constant constructors .
 		- 可以互相通过 `this` 或 `this.constructorName` 来引用同一个类其他 constructor .
 			- 不能有 **方法体** , 不能有 initializer list 和 initializing formal parameters
@@ -477,8 +477,69 @@ tags:: [[Dart]]
 			    Point.alongYAxis(double y) : this.of(0.0, y);
 			  }
 			  ```
-	- ### Factory constructors
-		-
+	- ### Redirecting Factory constructors
+		- Redirecting Factory constructors 就是使用 `=` 将当前 Factory constructors 指向另一个 **参数相同** 的 constructors .
+			- 这有点类似于 Tear-off
+			- ``` dart
+			  class Point {
+			    final double x;
+			    final double y;
+			  
+			    Point(this.x, this.y);
+			  
+			    factory Point.of(double x, double y) = Point;
+			  }
+			  ```
+		- 这种方式, 也可以指向其 **子类** 的构造方法.
+			- ``` dart
+			  class Point {
+			    final double x;
+			    final double y;
+			  
+			    const Point(this.x, this.y);
+			  
+			    factory Point.pointA(double x, double y) = PointA;
+			    factory Point.pointB(double x, double y) = PointB;
+			  }
+			  
+			  class PointA extends Point {
+			    PointA(double x, double y) : super(x, y);
+			  }
+			  
+			  class PointB extends Point {
+			    PointB(double x, double y) : super(x, y);
+			  }
+			  ```
+		- 如果  Factory constructors 要返回一个 `const` 变量, 则其必须使用 `const` 修饰.
+			- 否则, 其创建的对象无法赋值给 `const` 变量 (不管其内部创建的对象是不是 `const` 的)
+		- 普通 Factory constructors 不能被 `const` 修饰, 但 Redirecting Factory constructors 可以.
+			- ``` dart
+			  class Point {
+			    final double x;
+			    final double y;
+			  
+			    const Point(this.x, this.y);
+			  
+			    factory Point.nonConstCon(double x, double y) = Point;
+			    // 正常, redirecting factory 构造函数可以用 const 修饰
+			    const factory Point.constCon(double x, double y) = Point;
+			    factory Point.constCon2(double x, double y) {
+			      return Point(x, y);
+			    }
+			    // 报错, 普通 factory 构造函数不能用 const 修饰
+			    const factory Point.constCon3(double x, double y) {
+			      return Point(x, y);
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    // 报错, 非 const factory 构造函数的返回值不能被赋值给 const 变量
+			    const p1 = Point.nonConstCon(1, 2);
+			    const p2 = const Point.constCon(1, 2);
+			    // 报错, 非 const factory 构造函数的返回值不能被赋值给 const 变量
+			    const p3 = Point.constCon2(1, 2);
+			  }
+			  ```
 - ## Constructor tear-offs
 	- Constructor 也可以作为 `tear-off` 使用 (参见: [[Dart Function]] 相关小节 ) :
 		- ``` dart
