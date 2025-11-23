@@ -452,16 +452,6 @@ tags:: [[Dart]]
 			    }
 			  }
 			  ```
-- ## Constructor execution order
-	- 构造方法执行顺序如下:
-		- 参数解析
-		  logseq.order-list-type:: number
-		- initializer list 执行
-		  logseq.order-list-type:: number
-		- 父类构造方法执行
-		  logseq.order-list-type:: number
-		- 构造方法体 `{}` 执行
-		  logseq.order-list-type:: number
 - ## Redirecting constructors
 	- ### Redirecting Non-factory constructors
 		- Non-factory constructors , 即 Generative constructors, Named constructors 和 Constant constructors .
@@ -556,6 +546,138 @@ tags:: [[Dart]]
 		  
 		  // Instead of a lambda for an unnamed constructor:
 		  var buffers = charCodes.map((code) => StringBuffer(code));
+		  ```
+- ## Constructor inheritance
+	- **子类** 不会直接继承 **父类** 的 Constructor , 但 **子类** 的 Constructor 会显式或隐式调用 **父类** 的 Constructor .
+	- ### Constructor execution order
+		- 类的构造方法执行顺序如下:
+			- Initializer list 执行 (包括 initializing formal parameters , 可认为是一种特殊的 Initializer list )
+			  logseq.order-list-type:: number
+			- 父类构造方法执行 (显示或隐式调用)
+			  logseq.order-list-type:: number
+			- 构造方法体 `{}` 执行
+			  logseq.order-list-type:: number
+	- ### Call superclass constructors implicitly
+		- 如果子类没有显式调用 (使用 `super()` 语法) 父类的构造方法, 则 Dart 会默认隐式调用父类的 **Unnamed no-argument constructor** .
+			- **Unnamed no-argument constructor (无名无参构造方法)** 不一定是 "未定义构造方法时 Dart 用的默认构造方法" , 还可能是开发者自己定义的.
+			- ``` dart
+			  class Person {
+			    String? name;
+			    int? age;
+			  
+			    Person() {
+			      print("Unnamed no-argument constructor");
+			    }
+			  }
+			  
+			  class Employee extends Person {}
+			  
+			  void main(List<String> args) {
+			    var e1 = Employee(); // Unnamed no-argument constructor
+			  }
+			  ```
+		- 如果子类没有显式调用 (使用 `super()` 语法) 父类的构造方法, 而父类又没有 **Unnamed no-argument constructor** , 则会报错.
+			- ``` dart
+			  class Person {
+			    String? name;
+			    int? age;
+			  
+			    Person(this.name, this.age) {
+			      print("Person(this.name, this.age)");
+			    }
+			  }
+			  
+			  class Employee extends Person {
+			    // 报错
+			    Employee() {
+			      print("Employee()");
+			    }
+			  }
+			  ```
+	- ### Call superclass constructors explicitly
+		- 如果父类没有 **Unnamed no-argument constructor** , 则可以显式调用父类构造方法.
+			- ``` dart
+			  class Person {
+			    String? name;
+			    int? age;
+			  
+			    Person(this.name, this.age) {
+			      print("Person(this.name, this.age)");
+			    }
+			  }
+			  
+			  class Employee extends Person {
+			    Employee(String name, int age) : super(name, age) {
+			      print("Employee(String name, int age)");
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    var e1 = Employee("Tech", "Tom", 18);
+			    // Person(this.name, this.age)
+			    // Employee(String name, int age)
+			  }
+			  ```
+		- 使用 `super()` 调用父类构造方法时, 可以传入表达式 (比如, 一个函数调用) .
+			- 这个表达式, 会在父类构造方法真正执行之前执行.
+			- 如果是函数调用, 则必须是 `static` 方法, 因为此时对象并未初始化完整, 不能使用 `this` .
+			- ``` dart
+			  class Person {
+			    String? name;
+			    int? age;
+			  
+			    Person.fromJson(Map json) : this.name = json['name'], this.age = json['age'] {
+			      print("Person.fromJson(Map json)");
+			    }
+			  }
+			  
+			  class Employee extends Person {
+			    // 传入 fetchDefaultData() 调用的结果
+			    Employee() : super.fromJson(fetchDefaultData()) {
+			      print("Employee()");
+			    }
+			  
+			    static Map fetchDefaultData() {
+			      return {'name': 'Default Name', 'age': 30};
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    var e1 = Employee();
+			    // Person.fromJson(Map json)
+			    // Employee()
+			  }
+			  ```
+	- ### Super parameters
+		- 如果父类没有 **Unnamed no-argument constructor** ,  也可以使用 Super parameters .
+		-
+	- ### 混合使用
+		- Initializer list , Initializing formal parameters, super() 和 Super parameters 可以混合使用
+		- ``` dart
+		  class Person {
+		    String? name;
+		    int? age;
+		  
+		    Person(this.name, this.age) {
+		      print("Person(this.name, this.age)");
+		    }
+		  }
+		  
+		  class Employee extends Person {
+		    String? department;
+		    String? leader;
+		    Employee(this.department, String leader, String name, int age)
+		      : this.leader = leader,
+		        super(name, age) {
+		      print("Employee(String name, int age)");
+		    }
+		  }
+		  
+		  void main(List<String> args) {
+		    var e1 = Employee("Tech", "Tom", 18);
+		    // Person(this.name, this.age)
+		    // Employee(String name, int age)
+		  }
 		  ```
 - ## 参考
 	- [Dart Docs - Constructors](https://dart.dev/language/constructors)
