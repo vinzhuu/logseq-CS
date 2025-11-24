@@ -613,7 +613,7 @@ tags:: [[Dart]]
 			  }
 			  
 			  void main(List<String> args) {
-			    var e1 = Employee("Tech", "Tom", 18);
+			    var e1 = Employee("Tom", 18);
 			    // Person(this.name, this.age)
 			    // Employee(String name, int age)
 			  }
@@ -648,35 +648,117 @@ tags:: [[Dart]]
 			    // Employee()
 			  }
 			  ```
-	- ### Super parameters
-		- 如果父类没有 **Unnamed no-argument constructor** ,  也可以使用 Super parameters .
-		-
+	- ### Super-initializer parameters
+		- 为了免去调用 `super(...)` 方法时的 **手动传参** , 可以使用 **Super-initializer parameters** , 将参数转发给父类的构造函数 .
+		- 如果用了 Super-initializer parameters, 但没有在 initializer list 显式调用 `super(...)` , 则会隐式调用父类的 unnamed constructor .
+			- ``` dart
+			  class Parent {
+			    int x;
+			    int y;
+			    Parent(int x, this.y) : this.x = x;
+			  }
+			  
+			  class Child extends Parent {
+			    int z;
+			  
+			    // 没有在 initializer list 显式调用 super(...)
+			    // 等价于 Child(int x, int y, int z) : this.z = z, super(x, y);
+			    Child(super.x, this.z, super.yy);
+			  
+			    @override
+			    String toString() {
+			      return 'Child(x: $x, y: $y, z: $z)';
+			    }
+			  }
+			  
+			  void main(List<String> args) {
+			    Child child = Child(1, 2, 3);
+			    print(child); // Child(x: 1, y: 3, z: 2)
+			  }
+			  ```
+			- 可以看到,  Super-initializer parameters 的 **位置和名称** 根本不重要, Dart 只会按顺序将所有 Super-initializer parameters 转发给父类的  unnamed constructor .
+		- 如果用了 Super-initializer parameters, 且在 initializer list 显式调用了 `super(...)` :
+			- 则相当于将 Super-initializer parameters 和 `super(...)` 中的参数, 一起转发给显式调用的那个父类构造方法.
+			- 若 `super(...)` 中不传参, 则 Super-initializer parameters 可以是 **Positional parameters** .
+				- ``` dart
+				  class Parent {
+				    int x;
+				    int y;
+				    Parent(int x,) : this.x = x, y = 0;
+				  }
+				  
+				  class Child extends Parent {
+				    int z;
+				  
+				    Child(this.z, super.x) : super();
+				  
+				    @override
+				    String toString() {
+				      return 'Child(x: $x, y: $y, z: $z)';
+				    }
+				  }
+				  
+				  void main(List<String> args) {
+				    Child child = Child(1, 2);
+				    print(child); // Child(x: 2, y: 0, z: 1)
+				  }
+				  ```
+			- 若 `super(...)` 中传参, 则 Super-initializer parameters 和 `super(...)` 中的参数, 只能是 **Named parameters** , 父类的那个构造方法, 也必须全是 **Named parameters** .
+				- ``` dart
+				  class Parent {
+				    int x;
+				    int y;
+				    Parent.named({this.x = 0, this.y = 0});
+				  }
+				  
+				  class Child extends Parent {
+				    int z;
+				  
+				    Child(this.z, {super.x}) : super.named(y: 0);
+				  
+				    @override
+				    String toString() {
+				      return 'Child(x: $x, y: $y, z: $z)';
+				    }
+				  }
+				  
+				  void main(List<String> args) {
+				    Child child = Child(1, x: 2);
+				    print(child); // Child(x: 2, y: 0, z: 1)
+				  }
+				  ```
+		- 注意:
+			- Super-initializer parameters 不能与 Redirecting constructors 一起使用.
+			  logseq.order-list-type:: number
+			- 不要给父类中的同一个参数多次赋值.
+			  logseq.order-list-type:: number
 	- ### 混合使用
-		- Initializer list , Initializing formal parameters, super() 和 Super parameters 可以混合使用
+		- Initializer list , Initializing formal parameters, super() 和 Super-initializer parameters 可以混合使用
 		- ``` dart
 		  class Person {
 		    String? name;
 		    int? age;
 		  
-		    Person(this.name, this.age) {
-		      print("Person(this.name, this.age)");
+		    Person({this.name, this.age}) {
+		      print("Person");
 		    }
 		  }
 		  
 		  class Employee extends Person {
 		    String? department;
-		    String? leader;
-		    Employee(this.department, String leader, String name, int age)
-		      : this.leader = leader,
-		        super(name, age) {
-		      print("Employee(String name, int age)");
+		    double? salary;
+		    
+		    Employee(this.department, double salary, String name, {super.age})
+		      : this.salary = salary,
+		        super(name: name) {
+		      print("Employee");
 		    }
 		  }
 		  
 		  void main(List<String> args) {
-		    var e1 = Employee("Tech", "Tom", 18);
-		    // Person(this.name, this.age)
-		    // Employee(String name, int age)
+		    var e1 = Employee("Tech", 10000, "Tom", age: 18);
+		    // Person
+		    // Employee
 		  }
 		  ```
 - ## 参考
