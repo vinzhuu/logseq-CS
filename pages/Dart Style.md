@@ -14,7 +14,9 @@ tags:: [[Dart]]
 	  	), // 末尾逗号
 	  );
 	  ```
--
+- ## 标识符 (Identifier)
+	- const variable: `lowerCamelCase` .
+	-
 - ## 参考
 	- [Dart Docs - Dart style guide](https://dart.dev/effective-dart/style)
 	  logseq.order-list-type:: number

@@ -292,7 +292,7 @@ tags:: [[Dart]]
 				  logseq.order-list-type:: number
 		- ==由于 Factory Constructors 无法使用 this 关键字, 所以不支持 initializer list 和 initializing formal parameters 方式.==
 	- ### Initialize in the declaration
-		- 在声明时初始化
+		- 在声明时初始化:
 			- ``` dart
 			  class Point {
 			    double? x = 1.0;
@@ -307,6 +307,25 @@ tags:: [[Dart]]
 			  void main(List<String> args) {
 			    var p = Point();
 			    print(p);
+			  }
+			  ```
+		- Instance Variables 会在执行构造方法之前赋值, 所以 non-late 变量无法使用 `this` 赋值:
+			- 参考: [Instance variables ](https://dart.dev/language/classes#instance-variables)
+			- ``` dart
+			  double initialX = 1.5;
+			  
+			  class Point {
+			    // OK, can access declarations that do not depend on `this`:
+			    double? x = initialX;
+			  
+			    // ERROR, can't access `this` in non-`late` initializer:
+			    double? y = this.x;
+			  
+			    // OK, can access `this` in `late` initializer:
+			    late double? z = this.x;
+			  
+			    // OK, `this.x` and `this.y` are parameter declarations, not expressions:
+			    Point(this.x, this.y);
 			  }
 			  ```
 	- ### Use constructor body

@@ -17,7 +17,7 @@ tags:: [[Dart]]
 				- Types
 					- 看完 Built-in types, Typedefs
 				- Classes & Objects
-					- 看完 Callable objects, Methods
+					- 看完 Classes, Constructors, Methods, Callable objects
 			- Tools & techniques
 				- Overview  ==已阅==
 				- Editors & debuggers  ==已阅==

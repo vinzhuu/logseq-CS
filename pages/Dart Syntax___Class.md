@@ -31,12 +31,10 @@ tags:: [[Dart]]
 		  logseq.order-list-type:: number
 - ## Variables
 	- 通读: [[Dart Syntax/Variable Members]]
-- ## Methods
-	- 通读: [[Dart Syntax/Method Members]]
 - ## Constructors
 	- 通读: [[Dart Syntax/Constructor]]
-- ## Create an object
-	-
+- ## Methods
+	- 通读: [[Dart Syntax/Method Members]]
 - ## Member access operators
 	- 参考: [Other operators](https://dart.dev/language/operators#other-operators)
 	- `.` : 成员访问 ( 对象不允许为 `null` )
@@ -49,8 +47,30 @@ tags:: [[Dart]]
 	  foo.bar();
 	  foo?.bar();
 	  ```
+- ## Cascade notation
+	- 参考: [Cascade notation](https://dart.dev/language/operators#cascade-notation)
+	- 可以在对象后面接 **级联符号** `..` , 用来连续多次访问这个对象的属性和方法.
+		- 在这过程中的返回值会被忽略, 最终返回这个对象本身.
+		- ``` dart
+		  StringBuffer sb = StringBuffer();
+		  print(
+		    sb
+		    ..write('foo')
+		    ..write('bar'),
+		  ); // foobar
+		  ```
+	- 如果对象可能为 `null` , 可以将第一个 `..` 改为 `?..` .
+		- 使用 `?..` 的效果是: 如果对象是 `null` , 则后续所有的级联操作都不会执行, 并最终返回 `null` (也即这个对象本身).
+		- ``` dart
+		  StringBuffer? sb = StringBuffer();
+		  sb = null;
+		  print(
+		    sb
+		    ?..write('foo')
+		    ..write('bar'),
+		  ); // null
+		  ```
 - ## 参考
 	- [Dart Docs - Classes](https://dart.dev/language/classes)
 	  logseq.order-list-type:: number
-	-
 	-

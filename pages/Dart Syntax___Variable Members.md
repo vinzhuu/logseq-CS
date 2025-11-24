@@ -28,7 +28,17 @@ tags:: [[Dart]]
 	    double z = 0; // Declare z, initially 0.
 	  }
 	  ```
--
+- ## Static variables
+	- 即, 使用 `static` 修饰的成员变量, 用 class 名称访问.
+	- ``` dart
+	  class Queue {
+	    static const initialCapacity = 16;
+	  }
+	  
+	  void main() {
+	    assert(Queue.initialCapacity == 16);
+	  }
+	  ```
 - ## 参考
 	- [Dart Docs - Classes](https://dart.dev/language/classes)
 	  logseq.order-list-type:: number

@@ -15,7 +15,7 @@ tags:: [[Program Language]]
 	  logseq.order-list-type:: number
 	- [[Dart Concept]]
 	  logseq.order-list-type:: number
-	- [[Dart 编码规范]]
+	- [[Dart Style]]
 	  logseq.order-list-type:: number
 	- 工具
 	  logseq.order-list-type:: number

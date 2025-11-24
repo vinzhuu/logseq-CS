@@ -71,8 +71,8 @@ tags:: [[Dart]]
 			- 不管 `field` 属性的 `Setter` 方法内部做了什么,  `field` 被赋的值都是 `value` .
 	- ### Implicit Getter & Setter
 		- 所有的 Instance variables 都会生成隐式的 `Getter` Method .
-		- 所有的 Non-final Instance variables 和 `late final` Instance variables 都会生成隐式的 `Setter` Method .
-			- 所有 非 `late` 的 `final` Instance variables , 需要在实例化时赋值, 后续用不到 `Setter` 方法
+		- 所有的 Non-final Instance variables 和 没有初始值的 `late final` Instance variables 都会生成隐式的 `Setter` Method .
+			- 所有 `non-late` 的 `final` Instance variables , 需要在实例化时赋值, 后续用不到 `Setter` 方法
 		- ``` dart
 		  class Point {
 		    double? x; // Declare instance variable x, initially null.
@@ -86,6 +86,7 @@ tags:: [[Dart]]
 		    assert(point.y == null); // Values default to null.
 		  }
 		  ```
+		- `late final` Instance variables 的 `Setter` Method 在被调用一次之后就会被禁用, 以保证 `final` 约束.
 	- ### Explicit Getter & Setter
 		- 可以使用 `get` 和  `set` 显式声明 Getter & Setter .
 			- 显式声明 Getter & Setter 的同时, 也是在声明同名变量, 所以不用另外再声明同名变量.
@@ -124,6 +125,11 @@ tags:: [[Dart]]
 			- 调用 setter 将值写回.
 			  logseq.order-list-type:: number
 		- Dart 会保证 Getter 和 Setter 分别 **只调用一次** , 避免产生副作用.
+- ## Class methods
+	- 使用 `static` 修饰的方法, 使用 class 名称访问.
+	- Class methods 内无法使用 `this` , 且只能访问 `static` 成员.
+	- static 方法也属于 编译时常量 (compile-time constants) , 可以作为参数传给 constant constructors .
+	- ==建议: 常用的工具方法, 使用 `top-level functions` , 而不是 static methods .==
 - ## Abstract methods
 	- 如下方法可以被定义为 Abstract Method .
 		- 普通 Instance Method
