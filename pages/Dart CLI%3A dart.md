@@ -8,5 +8,6 @@ tags:: [[Dart]]
 	  logseq.order-list-type:: number
 	- 运行代码: [[Dart CLI: dart run]]
 	  logseq.order-list-type:: number
-	-
+	- 依赖管理: [[Dart CLI: dart pub]]
+	  logseq.order-list-type:: number
 -

@@ -9,7 +9,7 @@ tags:: [[Program Language]]
 	  logseq.order-list-type:: number
 	- [[Dart Core Libraries]]
 	  logseq.order-list-type:: number
-	- [[Dart Packages]]
+	- [[Dart Package]]
 	  logseq.order-list-type:: number
 	- [[Dart Common-line Tools]]
 	  logseq.order-list-type:: number
@@ -38,4 +38,6 @@ tags:: [[Program Language]]
 		- [Dart SDK archive](https://dart.dev/get-dart/archive)
 	- ### Dart Spec
 		- [Dart language specification](https://dart.dev/resources/language/spec)
--
+	- ### Glossary
+		- [Dart Glossary](https://dart.dev/resources/glossary)
+	-

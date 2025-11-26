@@ -26,6 +26,8 @@ tags:: [[Dart]]
 	  logseq.order-list-type:: number
 	- [[Dart Class & Object]]
 	  logseq.order-list-type:: number
+	- [[Dart Library & Import]]
+	  logseq.order-list-type:: number
 	- [[Dart Collection]]
 	  logseq.order-list-type:: number
 		- [[Dart Type/List]]
