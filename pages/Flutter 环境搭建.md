@@ -9,6 +9,6 @@ tags:: [[Flutter]]
   logseq.order-list-type:: number
 - [[Flutter 卸载]]
   logseq.order-list-type:: number
-- [[Flutter Upgrade]]
+- [[Flutter Version Switching]]
   logseq.order-list-type:: number
 -

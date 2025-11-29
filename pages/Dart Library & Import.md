@@ -11,8 +11,11 @@ tags:: [[Dart]]
 			- 声明属于这个 `library` 的 `part` 文件.
 			  logseq.order-list-type:: number
 	- ### Library declaration
-		- 使用 `library` 声明一个库.
+		- 每个 Dart 文件, 不用声明, 它自然就是一个 `library` .
+		- 也可以使用 `library` 声明一个库.
+			- `library` 指令, 应出现在 dart 文件所有语句之前.
 		- `library library_name;`
+			- 库名一般建议用 `.` 分级.
 			- ``` dart
 			  // my_library.dart
 			  library my_awesome_project.utils;
@@ -21,11 +24,8 @@ tags:: [[Dart]]
 			    // ...
 			  }
 			  ```
-		- `library;`
-			- 不使用 `library` 指令
-				-
-		- `library` 指令, 应出现在 dart 文件所有语句之前.
-		-
+		- `library;` (不声明库名, 除了可以加注解外, 与不使用 `library;` 没啥区别)
+		- ==如今, 不建议使用 `library library_name;` 声明一个库的名称, 因为不同 `package` 内的库名很容易冲突.==
 	- ### Part declaration
 		- 在 `library` 的文件中, 使用 `part` 指定这个 `library` 所包含的 `part` 文件 .
 		- `part` 指令, 应该出现在 `library` 语句之后, 其它语句之前.
@@ -86,6 +86,31 @@ tags:: [[Dart]]
 		- 那么 `class A` 和 `class B` 都可以使用对方的类或对象, 访问对方的私有成员 (不管两个类是不是在同一个文件中) .
 	- 所以, 同一 `library` 中的任何成员, 都可以互相访问.
 - ## Import
+	- ### Import Built-in libraries
+		- 导入 Dart 内置库
+		- `import 'dart:xxxxx';`
+		- ``` dart
+		  import 'dart:js_interop';
+		  ```
+	- ### Import Pub libraries
+		- 导入 Pub 上的库.
+		- `import 'package:pacakge_name/foo.dart;`
+		- ``` dart
+		  import 'package:test/test.dart';
+		  ```
+	- ### Specifying a library prefix
+		- 导入库时, 可以为库指定一个前缀.
+		- 这样, 如果两个库内有相同的标识符, 则可以使用前缀来避免发生冲突.
+		- ``` dart
+		  import 'package:lib1/lib1.dart';
+		  import 'package:lib2/lib2.dart' as lib2;
+		  
+		  // Uses Element from lib1.
+		  Element element1 = Element();
+		  
+		  // Uses Element from lib2.
+		  lib2.Element element2 = lib2.Element();
+		  ```
 	-
 - ## 参考
 	- [Dart Docs - Libraries & imports](https://dart.dev/language/libraries)

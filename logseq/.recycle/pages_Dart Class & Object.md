@@ -2,7 +2,6 @@ tags:: [[Dart]]
 ---
 
 - ## 学习路线
-	- Dart 的继承机制, 基于 `class` 和 `mixin` :
 	- [[Dart Type Overview]]
 	  logseq.order-list-type:: number
 	- [[Dart Type Alias]]
@@ -21,12 +20,10 @@ tags:: [[Dart]]
 		  logseq.order-list-type:: number
 		- [[Dart Syntax/Abstract Class]]
 		  logseq.order-list-type:: number
-		- [[Dart Syntax/Implicit interface]]
-		  logseq.order-list-type:: number
-		- [[Dart Syntax/Extend a class]]
-		  logseq.order-list-type:: number
-	- [[Dart Syntax/Mixin]]
+	- [[Dart Generic]]
 	  logseq.order-list-type:: number
-	- [[Dart Syntax/Extension Method]]
+	- [[Dart Syntax/Implicit interface]]
+	  logseq.order-list-type:: number
+	- [[Dart Syntax/Extend a class]]
 	  logseq.order-list-type:: number
 	-

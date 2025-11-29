@@ -4,7 +4,7 @@ tags:: [[Dart]]
 - ## 作用
 	- 其实就是一个变量占位符, 表示我不太关心这个变量.
 - ## Top-level and Local Variable
-	- 可以访问 `Top-level Wildcard Variables` , 且  `Local Wildcard variable` 不会覆盖`Top-level Wildcard Variables` 的值.
+	- 可以访问 `Top-level Wildcard Variables` , 且  `Local Wildcard variable` 不会覆盖 `Top-level Wildcard Variables` 的值.
 		- ``` dart
 		  int _ = 42; // 顶层声明 —— 可以用
 		  void main() {

@@ -138,7 +138,7 @@ tags:: [[Dart]]
 		  logseq.order-list-type:: number
 		- Getter & Setter
 		  logseq.order-list-type:: number
-	- Abstract Method 只能存在于 [[Dart Syntax/Abstract Class]] 和 [[Dart Syntax/Mixin]] 中 .
+	- Abstract Method 只能存在于 [[Dart Syntax/Abstract Class]] 和 [[Dart Mixin]] 中 .
 	- 声明 Abstract Method 时, 方法 **无需 (且不能)** 使用 `abstract` 关键字修饰, 只要不写方法体就行.
 		- ``` dart
 		  abstract class Doer {
