@@ -30,7 +30,7 @@ tags:: [[Dart Type]]
 		  logseq.order-list-type:: number
 		- `Symbol` (参见: [[Dart Reflect]] )
 		  logseq.order-list-type:: number
-		- [[Dart Type/Null]]
+		- [[Dart Type - Null]]
 		  logseq.order-list-type:: number
 	- 以上类型都可以使用 **字面量 (literal)** 去创建对象.
 - ## Special-role types
@@ -55,7 +55,7 @@ tags:: [[Dart Type]]
 		  logseq.order-list-type:: number
 		- `Object?`
 		  logseq.order-list-type:: number
-		- [[Dart Type/Null]]
+		- [[Dart Type - Null]]
 		  logseq.order-list-type:: number
 		- [[Dart Syntax/Never Type]]
 		  logseq.order-list-type:: number

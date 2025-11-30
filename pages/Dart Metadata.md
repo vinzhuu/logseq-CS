@@ -47,7 +47,31 @@ tags:: [[Dart]]
 		- 具体参见: [[Dart Syntax/Extend a class]]
 	-
 - ## Analyzer-supported annotations
-	-
+- ## Custom annotations
+	- ``` dart
+	  class Todo {
+	    final String who;
+	    final String what;
+	  
+	    const Todo(this.who, this.what);
+	  }
+	  
+	  @Todo('Dash', 'Implement this function')
+	  void doSomething() {
+	    print('Do something');
+	  }
+	  ```
+- ## package:meta
+	- 使用 `@Target` 指定注解可以使用的地方.
+		- 参见: [package:meta](https://pub.dev/packages/meta)
+	- ``` dart
+	  import 'package:meta/meta_meta.dart';
+	  
+	  @Target({TargetKind.function, TargetKind.method})
+	  class Todo {
+	    // ···
+	  }
+	  ```
 - ## 参考
 	- [Dart Docs - Metadata](https://dart.dev/language/metadata)
 	  logseq.order-list-type:: number

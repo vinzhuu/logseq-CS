@@ -2,9 +2,8 @@ tags:: [[Dart]]
 ---
 
 - ## Implicit interfaces
-	- Dart 中没有专门的 `interface` 关键字, 用于定义接口.
-	- 每个 class 都隐式地定义了一个与 class 同名的接口.
-	- 这个接口, 包含这个 class 所有的 Instance Members 和 这个 class 是实现的所有 Interfaces .
+	- Dart 中, 每个 class 都隐式地定义了一个与 class 同名的接口.
+	- 这个接口, 包含这个 class 所有的 Instance Members 和 这个 class 实现的所有 Interfaces .
 	- class 可以使用 `implements` 关键字来实现 **一个或多个接口** .
 	- 实现一个接口时, 需要重写其所有成员:
 		- 对于实例变量, 需要重写其 getter 方法.

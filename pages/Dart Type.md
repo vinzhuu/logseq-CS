@@ -27,6 +27,10 @@ tags:: [[Dart]]
 	  logseq.order-list-type:: number
 	- [[Dart Syntax/Extend a class]]
 	  logseq.order-list-type:: number
+	- [[Dart Type - Object]]
+	  logseq.order-list-type:: number
+	- [[Dart Equality & Hashcoode]]
+	  logseq.order-list-type:: number
 	- [[Dart Mixin]]
 	  logseq.order-list-type:: number
 	- [[Dart Extension Method]]

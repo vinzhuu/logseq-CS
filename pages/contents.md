@@ -1,2 +1,2 @@
 -
-- {{renderer :tocgen2, [[dart metadata]], calc(100vh - 135px)}}
+- {{renderer :tocgen2, [[dart equality & hashcoode]], calc(100vh - 135px)}}
